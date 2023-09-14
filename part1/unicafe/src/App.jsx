@@ -61,7 +61,7 @@ const Statistics = (props) => {
       <h1>statistics</h1>
       <p> good {props.good} </p>
       <p> neutral {props.neutral} </p>
-      <p> bad {props.bad} </p>
+      <p> bad {props.bad}  </p>
       <p>average {calculate_average_function(props.allReview)} </p>
       <p>positive {calculate_positive_function(props.allReview)} % </p>
     </div>
