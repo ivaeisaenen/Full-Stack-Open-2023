@@ -32,7 +32,17 @@ const Statistics = (props) => {
   }
 
   const calculate_positive_function = (list) => {
-    const count = list.reduce((counter, rev) => rev === 1 ? counter += 1 : counter, 0); // 6
+    if (list.length === 0) {
+      return (0)
+    }
+
+    // const count = list.reduce((counter, rev) => rev === 1 ? counter += 1 : counter, 0)
+    let count = 0
+    for (const rev of list) {
+      if (rev === 1) {
+        count += 1
+      }
+    }
     console.log('count = ', count)
     const positive_percentage = count / list.length *100
     return (positive_percentage)
@@ -41,14 +51,17 @@ const Statistics = (props) => {
   if (props.allReview.length === 0) {
     return (
       <div>
-        average 0
-        positive 0
+        No feedback given
       </div>
     )
   }
 
   return (
     <div>
+      <h1>statistics</h1>
+      <p> good {props.good} </p>
+      <p> neutral {props.neutral} </p>
+      <p> bad {props.bad} </p>
       <p>average {calculate_average_function(props.allReview)} </p>
       <p>positive {calculate_positive_function(props.allReview)} % </p>
     </div>
@@ -95,11 +108,7 @@ const App = () => {
       <Button handleClick={() => setToGood(good + 1)} text="good" />
       <Button handleClick={() => setToNeural(neutral + 1)} text="neutral" />
       <Button handleClick={() => setToBad(bad + 1)} text="bad" />
-      <h1>statistics</h1>
-      <p> good {good} </p>
-      <p> neutral {neutral} </p>
-      <p> bad {bad} </p>
-      <Statistics allReview={allReview} />
+      <Statistics allReview={allReview} good={good} neutral={neutral} bad={bad} />
       {/* <p> average {average(allReview)} </p> */}
     </div>
   )
