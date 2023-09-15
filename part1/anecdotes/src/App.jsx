@@ -14,10 +14,18 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [voted, setVoted] = useState(Array(anecdotes.length).fill(0))
+  const [best, setBest] = useState(0)
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
+  }
+
+  function getIndexOfMaxValue(array) {
+    console.log('array = ', array)
+    let idx = array.indexOf(Math.max(...array))
+    console.log('idx = ', idx)
+    return (idx)
   }
 
   const setToVoted = (newVote)=> {
@@ -28,6 +36,8 @@ const App = () => {
     console.log('newVoted = ', newVoted)
     setVoted(newVoted)
     console.log('voted = ', voted)
+    setBest(getIndexOfMaxValue(newVoted))
+    console.log("best = ", best)
   }
 
 const setToSelected = (randomInt) => {
@@ -38,13 +48,21 @@ const setToSelected = (randomInt) => {
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
+      <h1>Anectode of the day</h1>
+      {anecdotes[selected]}<br />
+      has {voted[selected]} votes<br />
+
       <button onClick={() => setToVoted(selected)}>
         vote
       </button>
+
       <button onClick={() => setToSelected(getRandomInt(anecdotes.length))}>
         next anectode
       </button>
+
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[best]} <br/>
+      has {voted[best]} votes
     </div>
   )
 }
