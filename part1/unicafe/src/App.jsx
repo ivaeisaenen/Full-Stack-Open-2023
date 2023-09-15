@@ -3,37 +3,43 @@ import { useState } from 'react'
 const StatisticsLine = (props) => {
   console.log('StatisticLine props = ', props)
   return (
-    <p> {props.text} {props.value} </p>
+    <tr>
+      <td> {props.text} </td>
+      <td> {props.value} </td>
+    </tr>
   )
 }
 
 const Statistics = (props) => {
 
   const calculate_average_function = (list) => {
-    console.log('list = ', list)
-    console.log('list.lenght =', list.length)
-    console.log('list.lenght === 1', (list.length === 1))
+    // console.log('list = ', list)
+    // console.log('list.lenght =', list.length)
+    // console.log('list.lenght === 1', (list.length === 1))
     if (list.length === 0) {
       const avg = 0
-      console.log('list.lenght == 0 and avg =', avg)
+      // console.log('list.lenght == 0 and avg =', avg)
       return (avg)
       }
 
-
     if (list.length === 1) {
       const avg = list[0]
-      console.log('list.lenght == 1 and avg =', avg)
+      // console.log('list.lenght == 1 and avg =', avg)
       return (avg)
     }
     if (list.length > 1) {
-      const sum = list.reduce((prev, curr) => prev + curr)
+      // const sum = list.reduce((prev, curr) => prev + curr)
+      let sum = 0
+      for (const rev of list) {
+        sum += rev
+      }
       const len = list.length
       const avg = sum / len
-      console.log('sum = ', sum)
-      console.log('len = ', len)
-      console.log('avg = ', avg)
-      console.log('list.lenght > 1 and avg =', avg)
-      return (avg)
+      // console.log('sum = ', sum)
+      // console.log('len = ', len)
+      // console.log('avg = ', avg)
+      // console.log('list.lenght > 1 and avg =', avg)
+      return (avg.toFixed(1))
     }
     return (avg)
   }
@@ -52,7 +58,8 @@ const Statistics = (props) => {
     }
     console.log('count = ', count)
     const positive_percentage = count / list.length *100
-    return (positive_percentage)
+    return (positive_percentage.toFixed(1) + " %")
+    // return (Math.round((positive_percentage)*10)/10)
   }
 
   if (props.allReview.length === 0) {
@@ -67,14 +74,13 @@ const Statistics = (props) => {
   return (
     <div>
       <h1>statistics</h1>
-      <StatisticsLine text="good" value={props.good} />
-      <StatisticsLine text="neutral" value={props.neutral} />
-      <StatisticsLine text="bad" value={props.bad} />
-      {/* <p> good {props.good} </p>
-      <p> neutral {props.neutral} </p>
-      <p> bad {props.bad}  </p> */}
-      <p>average {calculate_average_function(props.allReview)} </p>
-      <p>positive {calculate_positive_function(props.allReview)} % </p>
+      <table>
+        <StatisticsLine text="good" value={props.good} />
+        <StatisticsLine text="neutral" value={props.neutral} />
+        <StatisticsLine text="bad" value={props.bad} />
+        <StatisticsLine text="average" value={calculate_average_function(props.allReview)} />
+        <StatisticsLine text="positive" value={calculate_positive_function(props.allReview)} />
+      </table>
     </div>
   )
 }
@@ -110,9 +116,6 @@ const App = () => {
     setBad(newValue)
   }
 
-
-
-
   return (
     <div>
       <h1>give feedback</h1>
@@ -120,7 +123,6 @@ const App = () => {
       <Button handleClick={() => setToNeural(neutral + 1)} text="neutral" />
       <Button handleClick={() => setToBad(bad + 1)} text="bad" />
       <Statistics allReview={allReview} good={good} neutral={neutral} bad={bad} />
-      {/* <p> average {average(allReview)} </p> */}
     </div>
   )
 }
