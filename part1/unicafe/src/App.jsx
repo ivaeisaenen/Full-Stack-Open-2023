@@ -1,5 +1,12 @@
 import { useState } from 'react'
 
+const StatisticsLine = (props) => {
+  console.log('StatisticLine props = ', props)
+  return (
+    <p> {props.text} {props.value} </p>
+  )
+}
+
 const Statistics = (props) => {
 
   const calculate_average_function = (list) => {
@@ -51,6 +58,7 @@ const Statistics = (props) => {
   if (props.allReview.length === 0) {
     return (
       <div>
+        <h1>statistics</h1>
         No feedback given
       </div>
     )
@@ -59,9 +67,12 @@ const Statistics = (props) => {
   return (
     <div>
       <h1>statistics</h1>
-      <p> good {props.good} </p>
+      <StatisticsLine text="good" value={props.good} />
+      <StatisticsLine text="neutral" value={props.neutral} />
+      <StatisticsLine text="bad" value={props.bad} />
+      {/* <p> good {props.good} </p>
       <p> neutral {props.neutral} </p>
-      <p> bad {props.bad}  </p>
+      <p> bad {props.bad}  </p> */}
       <p>average {calculate_average_function(props.allReview)} </p>
       <p>positive {calculate_positive_function(props.allReview)} % </p>
     </div>
