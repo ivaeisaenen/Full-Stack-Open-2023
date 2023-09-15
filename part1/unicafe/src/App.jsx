@@ -65,7 +65,6 @@ const Statistics = (props) => {
   if (props.allReview.length === 0) {
     return (
       <div>
-        <h1>statistics</h1>
         No feedback given
       </div>
     )
@@ -73,7 +72,6 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <h1>statistics</h1>
       <table>
         <StatisticsLine text="good" value={props.good} />
         <StatisticsLine text="neutral" value={props.neutral} />
@@ -122,6 +120,7 @@ const App = () => {
       <Button handleClick={() => setToGood(good + 1)} text="good" />
       <Button handleClick={() => setToNeural(neutral + 1)} text="neutral" />
       <Button handleClick={() => setToBad(bad + 1)} text="bad" />
+      <h1>statistics</h1>
       <Statistics allReview={allReview} good={good} neutral={neutral} bad={bad} />
     </div>
   )
